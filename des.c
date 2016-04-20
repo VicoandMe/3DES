@@ -604,21 +604,25 @@ int D3DES_Encrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock){
 	  fileLen_out = fileLen_in;
 	}
 	D3DES_Encrypt(plainBlock,keyBlock,cipherBlock,fileLen_in); 
-	cipherBlock[fileLen_out] = "\0";
+	return fileLen_out;
 }
 
 //3DES解密字符串
-int D3DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock){       
+int D3DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock, int len){       
 	int count;
 	long fileLen_in,fileLen_out;
-
-  fileLen_out = fileLen_in = strlen(cipherBlock); 
-
+  if (len == 0) {
+    fileLen_out = fileLen_in = strlen(cipherBlock); 
+  } else {
+	  fileLen_out = fileLen_in = len;
+	}
 	count = D3DES_Decrypt(cipherBlock,keyBlock,plainBlock,fileLen_in);
-	plainBlock[count] = "/0";
-
+	//printf("count: %d\n", count);
+	plainBlock[count] = '\0';
+	//printf("译文：%d\n", strlen(plainBlock));
 	return DES_OK;   
 }
+
 //加密字符串
 int DES_Encrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock){   
     long fileLen_in,fileLen_out;
@@ -630,18 +634,19 @@ int DES_Encrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock){
 		  fileLen_out = fileLen_in;
 		}
     DES_Encrypt(plainBlock,keyBlock,cipherBlock,fileLen_in); 
-    cipherBlock[fileLen_out] = "\0";
+    return fileLen_out;
 }
   
 //解密文件
-int DES_Decrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock){   
+int DES_Decrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock, int len) {   
     long fileLen_in,fileLen_out;
     int count;
-    fileLen_in = strlen(plainBlock);
-    if (fileLen_in % 8 != 0)
-	fileLen_out = (fileLen_in/8+1)*8;
+		if (len == 0) {
+      fileLen_in = strlen(plainBlock);
+		} else {
+		  fileLen_in = len;
+		}
     count = DES_Decrypt(cipherBlock,keyBlock,plainBlock,fileLen_in);
-    plainBlock[count] = "/0";
-
+    plainBlock[count] = '\0';
     return DES_OK;  
 }

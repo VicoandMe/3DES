@@ -81,21 +81,28 @@ void DES_code() {
 	} else if (command == 2) {
 	  char ciphertext[1000];
 		char input[1000];
+		char output[1000];
 		char key[30];
+		int len = 0;
 		int i;		
 		printf("输入明文：");
 		scanf("%s", input);
 		printf("输入key：");
 		scanf("%s", key);
-		DES_Encrypt_String(input,key,ciphertext);
-		for (i = 0; i < strlen(ciphertext) - 1; i++) {
+		len = DES_Encrypt_String(input,key,ciphertext);
+		for (i = 0; i < len; i++) {
 		  printf("%02X ",((unsigned int) ciphertext[i])&0x00ff);
 		}
 		printf("\n");
-		printf("密文长度:%d字\n", strlen(ciphertext) - 1);
-	  getchar();
+		printf("密文长度:%d字\n", len);
+	  printf("输入1将密文解码:");
+		scanf("%d", &command);
+		if (command == 1) {
+			DES_Decrypt_String(ciphertext, key, output, len);   
+		  printf("译文: %s\n", output);
+		}
 		getchar();
-
+		getchar();
 	}
 }
 
@@ -126,7 +133,7 @@ void DES_decode() {
 		printf("输入密文：");
 		scanf("%s", ciphertext);
 	  scanf("%s", key);
-		DES_Decrypt_String(ciphertext, key, output);   
+		DES_Decrypt_String(ciphertext, key, output, 0);   
 		printf("译文: %s\n", output);
 		getchar();
 		getchar();
@@ -154,7 +161,9 @@ void D3DES_code() {
 } else if (command == 2) {
 		char ciphertext[1000];
 		char input[1000];
+		char output[1000];
 		char key[30];
+		int len;
 		int i;
     printf("输入明文：");
 	  scanf("%s", input);
@@ -162,15 +171,20 @@ void D3DES_code() {
 			printf("输入第%d密钥：", i+1);
 			scanf("%s", key+i*8);
 		}
-		D3DES_Encrypt_String(input,key,ciphertext);   
-		for (i = 0; i < strlen(ciphertext) - 1; i++) {
+		len = D3DES_Encrypt_String(input,key,ciphertext);   
+		for (i = 0; i < len; i++) {
       printf("%02X ",((unsigned int) ciphertext[i])&0x00ff);
 		}
 		printf("\n");
-		printf("密文长度:%d字节\n", strlen(ciphertext) - 1);
+		printf("密文长度:%d字节\n", len);
+	  printf("输入1将密文解码:");
+		scanf("%d", &command);
+		if (command == 1) {
+			D3DES_Decrypt_String(ciphertext, key, output, len);   
+		  printf("译文: %s\n", output);
+		}
 		getchar();
 		getchar();
-
 	}
 }
 
@@ -203,7 +217,7 @@ void D3DES_decode() {
 			printf("输入第%d密钥：", i+1);
 			scanf("%s", key+i*8);
 		}
-		D3DES_Decrypt_String(ciphertext, key, output);   
+		D3DES_Decrypt_String(ciphertext, key, output, 0);   
 		printf("译文: %s\n", output);
 		getchar();
 		getchar();

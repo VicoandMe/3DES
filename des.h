@@ -36,14 +36,14 @@ int DES_Decrypt(ElemType *cipherBuffer, ElemType *keyBuffer, ElemType *plainBuff
 int DES_Encrypt_File(char *plainFile, char *keyStr,char *cipherFile);//加密文件  
 int DES_Decrypt_File(char *cipherFile, char *keyStr,char *plainFile);//解密文件
 int DES_Encrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock);//加密字符串
-int DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock);//解密字符串 
+int DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock, int len);//解密字符串 
 //3DES算法
 int D3DES_Encrypt(ElemType *plainBuffer, ElemType *keyBuffer, ElemType *cipherBuffer, int n);//加密数据 
 int D3DES_Decrypt(ElemType *cipherBuffer, ElemType *keyBuffer, ElemType *plainBuffer, int n);//解密数据 
 int D3DES_Encrypt_File(char *plainFile, char *keyStr,char *cipherFile);//加密文件  
 int D3DES_Decrypt_File(char *cipherFile, char *keyStr,char *plainFile);//解密文件 
 int D3DES_Encrypt_String(char *plainBlock, char *keyBlock,char *cipherBlock);//加密字符串
-int D3DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock);//解密字符串
+int D3DES_Decrypt_String(char *cipherBlock, char *keyBlock,char *plainBlock, int len);//解密字符串
 
 
 //初始置换表IP
