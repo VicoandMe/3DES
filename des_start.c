@@ -85,9 +85,13 @@ void DES_code() {
 		int i;		
 		printf("输入明文：");
 		scanf("%s", input);
-	  scanf("%s", key);
+		printf("输入key：");
+		scanf("%s", key);
 		DES_Encrypt_String(input,key,ciphertext);
-		printf("密文: %s\n", ciphertext);
+		for (i = 0; i < strlen(ciphertext) - 1; i++) {
+		  printf("%02X ",((unsigned int) ciphertext[i])&0x00ff);
+		}
+		printf("\n");
 		printf("密文长度:%d字\n", strlen(ciphertext) - 1);
 	  getchar();
 		getchar();
@@ -159,7 +163,10 @@ void D3DES_code() {
 			scanf("%s", key+i*8);
 		}
 		D3DES_Encrypt_String(input,key,ciphertext);   
-		printf("密文: %s\n", ciphertext);
+		for (i = 0; i < strlen(ciphertext) - 1; i++) {
+      printf("%02X ",((unsigned int) ciphertext[i])&0x00ff);
+		}
+		printf("\n");
 		printf("密文长度:%d字节\n", strlen(ciphertext) - 1);
 		getchar();
 		getchar();
