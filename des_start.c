@@ -4,6 +4,7 @@
 #include "stdio.h" 
 #include "stdlib.h"   
 #include "des.h"
+#include <string.h>
 
 void show1() //主界面
 {
@@ -85,8 +86,9 @@ void DES_code() {
 		printf("输入明文：");
 		scanf("%s", input);
 	  scanf("%s", key);
-		DES_Encrypt_String(input,key,ciphertext);   
+		DES_Encrypt_String(input,key,ciphertext);
 		printf("密文: %s\n", ciphertext);
+		printf("密文长度:%d字\n", strlen(ciphertext) - 1);
 	  getchar();
 		getchar();
 
@@ -121,7 +123,7 @@ void DES_decode() {
 		scanf("%s", ciphertext);
 	  scanf("%s", key);
 		DES_Decrypt_String(ciphertext, key, output);   
-		printf("密文: %s\n", output);
+		printf("译文: %s\n", output);
 		getchar();
 		getchar();
 	}
@@ -144,7 +146,7 @@ void D3DES_code() {
 		scanf("%s", file_key);
 		D3DES_Encrypt_File(file_in, file_key, file_temp);
 		getchar();
-			getchar();
+		getchar();
 } else if (command == 2) {
 		char ciphertext[1000];
 		char input[1000];
@@ -158,6 +160,7 @@ void D3DES_code() {
 		}
 		D3DES_Encrypt_String(input,key,ciphertext);   
 		printf("密文: %s\n", ciphertext);
+		printf("密文长度:%d字节\n", strlen(ciphertext) - 1);
 		getchar();
 		getchar();
 
@@ -242,19 +245,19 @@ int main()
 {    
   int command = 0;  
 	system("clear");
-  show1();
-  scanf("%d", &command);
 	while(1) {
-    switch(command) {
-     case 1:
-       code();
-			 break;
-		 case 2:
-			 decode();
-			 break;
-		 case 3:
-			 return 0;
-		 default: break;
+    show1();
+    scanf("%d", &command);
+      switch(command) {
+        case 1:
+          code();
+			    break;
+		    case 2:
+			    decode();
+			    break;
+		    case 3:
+			    return 0;
+		      default: break;
     }
 	}
 }
