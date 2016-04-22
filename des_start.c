@@ -106,6 +106,25 @@ void DES_code() {
 	}
 }
 
+int charToHex(char c) {
+  switch(c) {
+	  case 'A': return 10; break;
+	  case 'B': return 11; break;
+	  case 'C': return 12; break;
+	  case 'D': return 13; break;
+	  case 'E': return 14; break;
+	  case 'F': return 15; break;
+		default: return c - '0'; break;
+	}
+}
+void cipToHex(char *input, char *cip) {
+	int i = 0;
+	for(i = 0; i < strlen(input)/2; i++) {
+	  cip[i] = charToHex(input[i*2])*16 + charToHex(input[i*2 + 1]);
+	}
+	cip[i*2] = '\0';
+}
+
 void DES_decode() {
   show2();
   int command;
@@ -128,11 +147,15 @@ void DES_decode() {
 	} else if (command == 2) {
 	  char ciphertext[1000];
 		char output[1000];
+		char input[1000];
 		char key[30];
 		int i;		
 		printf("输入密文：");
-		scanf("%s", ciphertext);
+		scanf("%s", input);
+		cipToHex(input, ciphertext);
+		printf("输入Key:");
 	  scanf("%s", key);
+		printf("%s\n",ciphertext);
 		DES_Decrypt_String(ciphertext, key, output, 0);   
 		printf("译文: %s\n", output);
 		getchar();
@@ -208,11 +231,13 @@ void D3DES_decode() {
 		getchar();
 } else if (command == 2) {
 	  char ciphertext[1000];
+		char input[1000];
 		char output[1000];
 		char key[30];
 		int i;		
 		printf("输入密文：");
-		scanf("%s", ciphertext);
+		scanf("%s", input);
+		cipToHex(input, ciphertext);
 		for (i = 0; i < 3; i++) {
 			printf("输入第%d密钥：", i+1);
 			scanf("%s", key+i*8);
